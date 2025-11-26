@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->string('offer_code')->unique();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->decimal('budget', 12, 2)->default(0);
+            $table->unsignedInteger('max_redemptions')->nullable();
+            $table->enum('discount_type', ['%', 'flat'])->default('%');
+            $table->decimal('discount_value', 10, 2)->default(0);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
