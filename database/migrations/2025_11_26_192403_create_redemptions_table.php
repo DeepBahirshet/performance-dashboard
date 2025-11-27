@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('redemptions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->id();
+            $table->foreignId('offer_id')->constrained('offers')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->date('redemption_date');
+            $table->decimal('order_amount', 12, 2)->default(0);
+            $table->decimal('discount_given', 12, 2)->default(0);
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

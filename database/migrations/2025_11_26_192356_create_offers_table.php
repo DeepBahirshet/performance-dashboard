@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('max_redemptions')->nullable();
             $table->enum('discount_type', ['%', 'flat'])->default('%');
             $table->decimal('discount_value', 10, 2)->default(0);
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 
