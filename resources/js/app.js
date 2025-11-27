@@ -1,4 +1,6 @@
 import './bootstrap';
+import 'vue3-toastify/dist/index.css';
+import ToastPlugin from 'vue3-toastify';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 
@@ -21,6 +23,9 @@ createInertiaApp({
         const vueApp = createApp({ render: () => h(App, props) });
 
         vueApp.use(plugin);
+
+        vueApp.use(ToastPlugin)
+
 
         vueApp.mount(el);
     },

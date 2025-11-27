@@ -20,50 +20,16 @@ class OfferController extends Controller
     {
         $this->service = $service;
     }
-    // public function index(Request $request)
-    // {
-    //     $filters = $request->only('q');
-    //     $offers = $this->service->paginateForAdmin($filters, 15);
+    public function index(Request $request)
+    {
+        $filters = $request->only('q');
+        $offers = $this->service->paginateForAdmin($filters, 15);
 
-    //     return Inertia::render('Admin/Offers/Index', [
-    //         'offers' => $offers,
-    //         'filters' => $filters,
-    //     ]);
-    // }
-
-    public function index()
-{
-    $offers = collect([
-        (object)[
-            'id' => 1,
-            'name' => 'Summer Mega Discount',
-            'offer_code' => 'SUMMER20',
-            'created_at' => now()->subDays(1),
-        ],
-        (object)[
-            'id' => 2,
-            'name' => 'New User Bonus',
-            'offer_code' => 'WELCOME50',
-            'created_at' => now()->subDays(2),
-        ],
-        (object)[
-            'id' => 3,
-            'name' => 'Flash Deal Evening',
-            'offer_code' => 'FLASH15',
-            'created_at' => now()->subDays(3),
-        ],
-    ]);
-
-    return inertia('Admin/Offers/Index', [
-        'offers' => [
-            'data' => $offers,
-            'links' => [],
-        ],
-        'filters' => [
-            'q' => '',
-        ],
-    ]);
-}
+        return Inertia::render('Admin/Offers/Index', [
+            'offers' => $offers,
+            'filters' => $filters,
+        ]);
+    }
 
 
     /**
@@ -122,6 +88,6 @@ class OfferController extends Controller
     public function destroy(Offer $offer)
     {
         $this->service->delete($offer);
-        return back()->with('success', 'Offer deleted.');
+        return back(303)->with('success', 'Offer deleted.');
     }
 }

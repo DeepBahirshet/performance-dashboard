@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('redemptions', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->foreignId('offer_id')->constrained('offers')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->date('redemption_date');
