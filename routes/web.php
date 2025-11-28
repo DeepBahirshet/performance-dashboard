@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\OfferRedemptionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Include admin routes
-require __DIR__.'/admin.php';
+Route::post('/offers/{offer}/redeem', [OfferRedemptionController::class, 'redeem'])->name('offers.redeem');

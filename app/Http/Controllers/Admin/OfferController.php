@@ -66,10 +66,10 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
-    return Inertia::render('Admin/Offers/Edit', [
-        'offer' => $offer,
-    ]);
-}
+        return Inertia::render('Admin/Offers/Edit', [
+            'offer' => $offer,
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -79,7 +79,7 @@ class OfferController extends Controller
         $data = $request->validated();
         $this->service->update($offer, $data);
 
-        return redirect()->route('admin.offers.index')->with('success', 'Offer updated successfully.');
+        return back(303)->with('success', 'Offer updated.');
     }
 
     /**

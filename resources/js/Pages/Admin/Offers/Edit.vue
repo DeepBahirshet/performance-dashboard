@@ -1,12 +1,18 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-xl mb-4">Edit Offer</h1>
-    <OfferForm :initial="offer" :action="route('admin.offers.update', offer.id)" method="put" />
-  </div>
+<div class="p-6 max-w-[80rem] mx-auto">
+  <h1 class="text-2xl font-semibold">Edit Offer</h1>
+  <hr class="my-4 border-gray-200 shadow-sm" />
+
+  <OfferForm
+    :initial="offer"
+    :action="route('admin.offers.update', offer.id)"
+    method="put"/>
+</div>
 </template>
 
 <script setup>
-import OfferForm from './Components/OfferForm.vue';
+import OfferForm from '@/Components/OfferForm.vue';
+import {route} from 'ziggy-js';
 
 const props = defineProps({
   offer: Object,

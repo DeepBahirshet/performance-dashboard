@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('redemption_date');
             $table->decimal('order_amount', 12, 2)->default(0);
             $table->decimal('discount_given', 12, 2)->default(0);
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamps();
         });
     }
 
