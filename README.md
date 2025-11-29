@@ -1,191 +1,213 @@
-🚀 Offer Performance & Redemption Forecasting Dashboard
+
+# Offer Performance & Redemption Forecasting Dashboard
 
 Laravel 12 + Vue 3 + Inertia.js + Chart.js + PostgreSQL
 
-A production-style module for managing promotional offers, tracking redemptions, and visualizing offer performance using analytics + 14-day forecast predictions.
+A production-grade analytics module built with Laravel 12, Vue 3, Inertia.js, Chart.js, and PostgreSQL. This module powers offer management, redemption tracking, KPI analytics, and a 14-day forecasting engine powered by Laravel Jobs. 
+##
 
-This assignment demonstrates backend architecture, Vue dashboards, SQL analytics, and async forecast computation using Laravel Jobs.
+## 📦 Features
 
+### ✨ Offer Management (CRUD)
+- Create, update, delete promotional offers
+- Includes fields:
+  - **name**
+  - **code**
+  - **budget**
+  - **discount_type** (%, flat)
+  - **value**
+  - **validity dates**
+  - **max_redemptions**
 
+##
 
-📦 Features
-✅ Offer Management (CRUD)
+### ⭐ Redemption API
 
-Create, update, delete promotional offers
+**Endpoint:**  
+`POST /api/offers/{offer}/redeem`
 
-Fields: name, code, budget, discount type (%, flat), value, validity dates, max redemptions
+#### 🔐 Validates:
+- Offer validity (`start_date` / `end_date`)
+- Budget remaining
+- Max redemptions (if applicable)
+- Prevents expired usage
 
-✅ Redemption API
+#### ⚙️ Computes:
+- **discount_given** (based on offer type)
+- **redemption_date** (server-side timestamp)
 
-POST /api/offers/{offer}/redeem
+##
 
-Validates:
+### ✅ Dashboard (Analytics + Charts)
 
-Offer validity (start_date/end_date)
+For each selected offer, the dashboard provides:
 
-Budget remaining
+- **Daily Redemption Chart**
+- **Cumulative Redemption Trend**
+- **Budget Utilization** (Spent vs Remaining)
+- **14-Day Forecast Chart**
+- **Moving Average–based predictions**
+- **Dashed line** for predicted values
+- **Cached forecast support** via database storage
 
-Max redemptions
+##
 
-Prevent expired usage
+### 🎯 KPIs (Key Performance Indicators)
 
-Computes:
+- **Total Redemptions**
+- **Total Discount Given**
+- **Remaining Budget**
+- **Redemption Rate** (% used from `max_redemptions`)
+- **Average Daily Redemption**
 
-discount_given (based on offer type)
+##
 
-redemption_date (server time)
+### 📈 Forecasting Engine (Async)
 
-✅ Dashboard (Analytics + Charts)
+- Background job computes predictions using **Moving Average**
+- Forecast data stored in `offer_forecasts` table
+- Dashboard loads cached predictions instantly
+- Falls back to **on-the-fly forecast** if cache is missing or stale
 
-For selected offer:
+##
 
-Daily Redemption Chart
+### 🗂️ Clean Architecture
 
-Cumulative Redemption Trend
+- **OfferService** — core business logic  
+- **OfferAnalyticsRepository** — SQL analytics & aggregations  
+- **ForecastService** — prediction algorithms  
+- **ComputeOfferForecast** Job — async forecast generation  
+- **API + Inertia.js Frontend** separation for clean boundaries  
 
-Budget Utilization (Spent vs Remaining)
+---
 
-Forecast Chart (Next 14 Days)
+## ⚙️ Tech Stack
 
-Moving Average
-
-Dashed predicted line
-
-Supports cached forecast via database
-
-✅ KPIs
-
-Total redemptions
-
-Total discount given
-
-Remaining budget
-
-Redemption rate (% used from max_redemptions)
-
-Average daily redemption
-
-✅ Forecasting Engine (Async)
-
-Background job generates predictions using Moving Average
-
-Data stored in offer_forecasts table
-
-Dashboard pulls cached predictions instantly
-
-Fallback to on-the-fly forecast when cache missing
-
-✅ Clean Architecture
-
-OfferService — business rules
-
-OfferAnalyticsRepository — analytics queries
-
-ForecastService — prediction algorithms
-
-ComputeOfferForecast Job — async forecast generation
-
-API + Inertia frontend separation
-
-
-
-⚙️ Tech Stack
-
-Laravel 12
-
-Inertia.js
-
-Vue 3
-
-Chart.js
-
-PostgreSQL
-
-Laravel Queues (database driver)
-
-TailwindCSS (optional UI enhancement)
+- **Laravel 12**
+- **Inertia.js**
+- **Vue 3**
+- **Chart.js**
+- **PostgreSQL**
+- **Laravel Queues** (database driver)
+- **TailwindCSS** (UI enhancement)
 
 
+---
 
-🛠 Installation & Setup
-1. Clone project
-git clone <repo-url>
-cd <project-folder>
+## 🛠 Installation & Setup
 
-2. Install PHP dependencies
+### 1️⃣ Clone the Project
+```bash
+git clone https://github.com/DeepBahirshet/performance-dashboard.git
+```
+```bash
+cd performance-dashboard
+```
+
+### 2️⃣ Install PHP Dependencies
+```bash
 composer install
+ ```
 
-3. Install Node dependencies
+### 3️⃣ Install Node Dependencies
+```bash
 npm install
+ ```
+ ### 4️⃣ Environment Setup
 
-4. Environment Setup
+ Duplicate the example environment file:
 
-Duplicate .env.example → .env and configure DB:
+```bash
+cp .env.example .env
+```
 
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=offer_dashboard
-DB_USERNAME=postgres
-DB_PASSWORD=postgres
+#### Environment Variables
+`DB_CONNECTION=pgsql`  
+`DB_HOST=127.0.0.1`  
+`DB_PORT=5432`  
+`DB_DATABASE=performance_dashboard`  
+`DB_USERNAME=postgres`  
+`DB_PASSWORD=postgres`
 
 
-Set queue driver:
+#### Set Queue Driver:
+`QUEUE_CONNECTION=database`
 
-QUEUE_CONNECTION=database
-
-5. Generate app key
+### 5️⃣ Generate Application Key
+```bash
 php artisan key:generate
+```
 
-6. Run migrations
+### 6️⃣ Run Migrations
+```bash
 php artisan migrate
+```
 
-
-(Optional) Seed sample offers + redemptions:
-
+### 7️⃣ (optional) Seed sample offers:
+```bash
 php artisan db:seed
+```
 
-7. Build frontend
-
+### 8️⃣ Build frontend
 Dev:
-
+```bash
 npm run dev
-
+```
 
 Prod:
-
+```bash
 npm run build
+```
 
-8. Start queue worker (for forecasts)
+### 9️⃣ Start queue worker (for forecasts)
+```bash
 php artisan queue:work
-
-9. Serve app
+```
+### 🔟 Serve app
+```bash
 php artisan serve
+```
 
+---
+##  🎟️ Offer Management (CRUD)
 
-🔥 API Usage
-Redeem Offer
-POST /api/offers/{offer}/redeem
+### Access Offer List (Index)
 
-Body (JSON)
-{
-  "customer_id": 1001,
-  "order_amount": 500
-}
+```bash
+/admin/offers
+```
+### Create New Offer
+```bash
+/admin/offers/create
+```
 
-What backend calculates:
+### Edit Offer
+```bash
+/admin/offers/{offer}/edit
+```
 
-discount_given (percent/flat based on offer settings)
+### Delete Offer
+From the Offers Index page, click the delete icon.  
+A confirmation popup will appear — clicking **Delete** will delete the selected offer.
 
-redemption_date (today)
+---
 
-Validity checks
+## API Reference
 
-Budget checks
+#### Redeem Offer
 
-Max redemption checks
+```bash
+  POST /api/offers/{offer}/redeem
+```
 
-Success Response
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `customer_id` | `integer` | **Required** |
+| `order_amount` | `integer` | **Required** |
+
+### Success Response
+
+```json
 {
   "status": true,
   "message": "Redeemed",
@@ -197,49 +219,26 @@ Success Response
     "discount_given": 50
   }
 }
+```
+--- 
 
+## 📊 Dashboard (Analytics + Charts)
 
+### Access:
 
-📊 Dashboard (Inertia + Vue + Chart.js)
-
-Access:
-
+```bash
 /admin/offers/{offer}/dashboard
+```
 
+**Charts and Analytics:**
 
-Charts:
+- Daily Redemption
 
-Daily Redemption
+- Cumulative Redemption
 
-Cumulative Redemption
+- Budget Utilization
 
-Budget Utilization
+- 14-Day Forecast (dashed line)
 
-14-Day Forecast (dashed line)
+- KPIs displayed above charts.
 
-KPIs displayed above charts.
-
-
-
-🔮 Forecasting (Async Job)
-Job
-
-App\Jobs\ComputeOfferForecast
-
-Generates:
-
-14-day prediction
-
-Using Moving Average (window = 7)
-
-Stores in offer_forecasts table
-
-Dispatching
-
-Triggers:
-
-Manually from controller when dashboard loads and cached forecast missing
-
-Automatically after each redemption
-
-Nightly scheduled run
