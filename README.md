@@ -118,7 +118,7 @@ npm install
  Duplicate the example environment file:
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 #### Environment Variables
