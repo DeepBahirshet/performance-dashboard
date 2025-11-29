@@ -2,13 +2,17 @@
 namespace App\Repositories;
 
 use App\Models\Offer;
+use App\Models\Redemption;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class OfferAnalyticsRepository
 {
-    public function dailyRedemptions(Offer $offer, string $from, string $to): array
+    public function dailyRedemptions(Offer $offer): array
     {
+        $from = $from ?? $offer->start_date->toDateString();
+        $to = $to ?? Carbon::now()->toDateString();
+
         $rows = DB::select(
             "
             SELECT gs.day::date as date,
@@ -62,6 +66,13 @@ class OfferAnalyticsRepository
             'redemption_rate_percent' => $redemptionRate,
             'avg_daily_redemption' => $avgDaily,
         ];
+    }
+
+    public function totalSpent(Offer $offer, string $from, string $to): float
+    {
+        return (float) Redemption::where('offer_id', $offer->id)
+            ->whereBetween('redemption_date', [$from, $to])
+            ->sum('discount_given');
     }
 
 

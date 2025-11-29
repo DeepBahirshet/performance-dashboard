@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import OfferForm from '@/Components/OfferForm.vue';
+import OfferForm from '@/Admin/Components/OfferForm.vue';
 import {route} from 'ziggy-js';
 
 const props = defineProps({
