@@ -11,7 +11,7 @@ class OfferAnalyticsRepository
     public function dailyRedemptions(Offer $offer): array
     {
         $from = $from ?? $offer->start_date->toDateString();
-        $to = $to ?? Carbon::now()->toDateString();
+        $to = min($offer->end_date, Carbon::now()->toDateString());
 
         $rows = DB::select(
             "
@@ -43,10 +43,10 @@ class OfferAnalyticsRepository
         return $out;
     }
 
-    public function kpis(Offer $offer, ?string $from = null, ?string $to = null): array
+    public function kpis(Offer $offer): array
     {
         $from = $from ?? $offer->start_date->toDateString();
-        $to = $to ?? Carbon::now()->toDateString();
+        $to = min($offer->end_date, Carbon::now()->toDateString());
 
         $totalRedemptions = (int) $offer->redemptions()->whereBetween('redemption_date', [$from, $to])->count();
         $totalDiscount = (float) $offer->redemptions()->whereBetween('redemption_date', [$from, $to])->sum('discount_given');

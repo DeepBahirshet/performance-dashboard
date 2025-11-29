@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\ComputeOfferForecast;
 use App\Models\Offer;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
@@ -74,6 +75,9 @@ class OfferService
             if ($discountAmount > $remainingBudget) {
                 throw new \RuntimeException('Insufficient budget.');
             }
+
+            // dispatch forecast job
+            ComputeOfferForecast::dispatch($lockedOffer->id, 'moving_average', 7, 14)->delay(now()->addSeconds(5));
 
             // create redemption
             $redemption = $lockedOffer->redemptions()->create([
