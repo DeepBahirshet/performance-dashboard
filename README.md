@@ -1,59 +1,271 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🚀 Offer Performance & Redemption Forecasting Dashboard
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 12 + Vue 3 + Inertia.js + Chart.js + PostgreSQL
 
-## About Laravel
+A production-style module for managing promotional offers, tracking redemptions, and visualizing offer performance using analytics + 14-day forecast predictions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This assignment demonstrates backend architecture, Vue dashboards, SQL analytics, and async forecast computation using Laravel Jobs.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+📦 Features
+✅ Offer Management (CRUD)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Create, update, delete promotional offers
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Fields: name, code, budget, discount type (%, flat), value, validity dates, max redemptions
 
-## Laravel Sponsors
+✅ Redemption API
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+POST /api/offers/{offer}/redeem
 
-### Premium Partners
+Validates:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Offer validity (start_date/end_date)
 
-## Contributing
+Budget remaining
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Max redemptions
 
-## Code of Conduct
+Prevent expired usage
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Computes:
 
-## Security Vulnerabilities
+discount_given (based on offer type)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+redemption_date (server time)
 
-## License
+✅ Dashboard (Analytics + Charts)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+For selected offer:
+
+Daily Redemption Chart
+
+Cumulative Redemption Trend
+
+Budget Utilization (Spent vs Remaining)
+
+Forecast Chart (Next 14 Days)
+
+Moving Average OR Linear Regression
+
+Dashed predicted line
+
+Supports cached forecast via database
+
+✅ KPIs
+
+Total redemptions
+
+Total discount given
+
+Remaining budget
+
+Redemption rate (% used from max_redemptions)
+
+Average daily redemption
+
+✅ Forecasting Engine (Async)
+
+Background job generates predictions using Moving Average
+
+Data stored in offer_forecasts table
+
+Dashboard pulls cached predictions instantly
+
+Fallback to on-the-fly forecast when cache missing
+
+✅ Clean Architecture
+
+OfferService — business rules
+
+OfferAnalyticsRepository — analytics queries
+
+ForecastService — prediction algorithms
+
+ComputeOfferForecast Job — async forecast generation
+
+API + Inertia frontend separation
+
+
+
+⚙️ Tech Stack
+
+Laravel 12
+
+Inertia.js
+
+Vue 3
+
+Chart.js
+
+PostgreSQL
+
+Laravel Queues (database driver)
+
+TailwindCSS (optional UI enhancement)
+
+
+
+🛠 Installation & Setup
+1. Clone project
+git clone <repo-url>
+cd <project-folder>
+
+2. Install PHP dependencies
+composer install
+
+3. Install Node dependencies
+npm install
+
+4. Environment Setup
+
+Duplicate .env.example → .env and configure DB:
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=offer_dashboard
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+
+
+Set queue driver:
+
+QUEUE_CONNECTION=database
+
+5. Generate app key
+php artisan key:generate
+
+6. Run migrations
+php artisan migrate
+
+
+(Optional) Seed sample offers + redemptions:
+
+php artisan db:seed
+
+7. Build frontend
+
+Dev:
+
+npm run dev
+
+
+Prod:
+
+npm run build
+
+8. Start queue worker (for forecasts)
+php artisan queue:work
+
+9. Serve app
+php artisan serve
+
+
+🔥 API Usage
+Redeem Offer
+POST /api/offers/{offer}/redeem
+
+Body (JSON)
+{
+  "customer_id": 1001,
+  "order_amount": 500
+}
+
+What backend calculates:
+
+discount_given (percent/flat based on offer settings)
+
+redemption_date (today)
+
+Validity checks
+
+Budget checks
+
+Max redemption checks
+
+Success Response
+{
+  "status": true,
+  "message": "Redeemed",
+  "data": {
+    "redemption_id": 45,
+    "offer_id": 1,
+    "remaining_budget": 950,
+    "total_redemptions": 1,
+    "discount_given": 50
+  }
+}
+
+
+
+📊 Dashboard (Inertia + Vue + Chart.js)
+
+Access:
+
+/admin/offers/{offer}/dashboard
+
+
+Charts:
+
+Daily Redemption
+
+Cumulative Redemption
+
+Budget Utilization
+
+14-Day Forecast (dashed line)
+
+KPIs displayed above charts.
+
+
+
+🔮 Forecasting (Async Job)
+Job
+
+App\Jobs\ComputeOfferForecast
+
+Generates:
+
+14-day prediction
+
+Using Moving Average (window = 7)
+
+Stores in offer_forecasts table
+
+Dispatching
+
+Triggers:
+
+Manually from controller when dashboard loads and cached forecast missing
+
+Automatically after each redemption
+
+Nightly scheduled run
+
+
+
+📁 Project Structure (Important Folders)
+app/
+ ├── Http/
+ │   ├── Controllers/Admin/OfferDashboardController.php
+ │   ├── Controllers/OfferRedemptionController.php
+ │   ├── Requests/RedemptionRequest.php
+ ├── Services/
+ │   ├── OfferService.php
+ │   ├── ForecastService.php
+ ├── Repositories/
+ │   └── OfferAnalyticsRepository.php
+ ├── Jobs/
+ │   └── ComputeOfferForecast.php
+ ├── Models/
+ │   └── OfferForecast.php
+resources/
+ └── js/Pages/Admin/Offers/Dashboard.vue
+routes/
+ ├── web.php
+ ├── api.php
+database/
+ ├── migrations/
+ └── seeders/
