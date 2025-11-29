@@ -47,7 +47,7 @@ Budget Utilization (Spent vs Remaining)
 
 Forecast Chart (Next 14 Days)
 
-Moving Average OR Linear Regression
+Moving Average
 
 Dashed predicted line
 
@@ -243,29 +243,3 @@ Manually from controller when dashboard loads and cached forecast missing
 Automatically after each redemption
 
 Nightly scheduled run
-
-
-
-📁 Project Structure (Important Folders)
-app/
- ├── Http/
- │   ├── Controllers/Admin/OfferDashboardController.php
- │   ├── Controllers/OfferRedemptionController.php
- │   ├── Requests/RedemptionRequest.php
- ├── Services/
- │   ├── OfferService.php
- │   ├── ForecastService.php
- ├── Repositories/
- │   └── OfferAnalyticsRepository.php
- ├── Jobs/
- │   └── ComputeOfferForecast.php
- ├── Models/
- │   └── OfferForecast.php
-resources/
- └── js/Pages/Admin/Offers/Dashboard.vue
-routes/
- ├── web.php
- ├── api.php
-database/
- ├── migrations/
- └── seeders/
