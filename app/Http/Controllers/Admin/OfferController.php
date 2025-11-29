@@ -88,6 +88,6 @@ class OfferController extends Controller
     public function destroy(Offer $offer)
     {
         $this->service->delete($offer);
-        return back(303)->with('success', 'Offer deleted.');
+        return redirect()->route('admin.offers.index')->with('success', 'Offer deleted.')->setStatusCode(303);
     }
 }
