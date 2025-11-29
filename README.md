@@ -98,8 +98,8 @@ For each selected offer, the dashboard provides:
 
 ### 1️⃣ Clone the Project
 ```bash
-git clone <repo-url>
-cd <project-folder>
+git clone https://github.com/DeepBahirshet/performance-dashboard.git
+cd performance-dashboard
 ```
 
 ### 2️⃣ Install PHP Dependencies
