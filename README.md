@@ -99,6 +99,8 @@ For each selected offer, the dashboard provides:
 ### 1️⃣ Clone the Project
 ```bash
 git clone https://github.com/DeepBahirshet/performance-dashboard.git
+```
+```bash
 cd performance-dashboard
 ```
 
