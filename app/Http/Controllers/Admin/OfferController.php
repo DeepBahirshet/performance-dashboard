@@ -79,7 +79,7 @@ class OfferController extends Controller
         $data = $request->validated();
         $this->service->update($offer, $data);
 
-        return back(303)->with('success', 'Offer updated.');
+        return redirect()->route('admin.offers.index')->with('success', 'Offer updated.')->setStatusCode(303);
     }
 
     /**
