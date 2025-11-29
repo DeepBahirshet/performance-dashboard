@@ -118,7 +118,7 @@ npm install
  Duplicate the example environment file:
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 #### Environment Variables
@@ -126,8 +126,8 @@ cp .env.example .env
 `DB_HOST=127.0.0.1`  
 `DB_PORT=5432`  
 `DB_DATABASE=performance_dashboard`  
-`DB_USERNAME=postgres`  
-`DB_PASSWORD=postgres`
+`DB_USERNAME=your_db_user`  
+`DB_PASSWORD=your_db_password`
 
 
 #### Set Queue Driver:
