@@ -242,3 +242,54 @@ A confirmation popup will appear — clicking **Delete** will delete the selecte
 
 - KPIs displayed above charts.
 
+---
+## 📸 UI Screens
+
+### 🖥️ Dashboard Overview  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6a7f0bd8-8b9d-4be5-b171-a2bff8e49f0a" width="90%">
+</p>
+
+---
+
+### 📈 Cumulative Analytics  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5e1c7bae-8940-4892-aab4-742a75f056f0" width="90%">
+</p>
+
+---
+
+### 🎯 Budget & Forecast  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/61572f78-4cbd-40b8-8a9f-be0bcd5af8d6" width="90%">
+</p>
+
+---
+
+### 🗂️ Offers — Index  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4ac6dad3-1449-4865-9e1a-152fa5813f6b" width="90%">
+</p>
+
+---
+
+### ➕ Offers — Create  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/33f21b53-1137-40ba-ad1e-3b9b9349b308" width="90%">
+</p>
+
+---
+
+### ✏️ Offers — Edit  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e977361d-c4bc-4b23-aaf9-6add1694ca09" width="90%">
+</p>
+
+---
+
+### 🗑️ Offers — Delete  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/29a5dd28-9e8e-421f-91e6-db757ec37938" width="90%">
+</p>
+
+
