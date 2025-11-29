@@ -56,7 +56,7 @@ class OfferMetricsService
 
         if ($useCached) {
             $forecastSeries = (array) $forecastRec->series;
-            $forecastLabels = (array) $forecastRec->series;
+            $forecastLabels = (array) $forecastLabels;
             $generatedAt = $forecastRec->generated_at;
         }
 

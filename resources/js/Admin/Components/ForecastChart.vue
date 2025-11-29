@@ -5,7 +5,7 @@
         <div class="h-64 relative">
             <canvas ref="forecastRef"></canvas>
         </div>
-        <div class="text-xs text-gray-500 mt-2">
+        <div v-if="props.generatedAt != null" class="text-xs text-gray-500 mt-2">
             Generated at: {{ formatLocal(props.generatedAt) }}
         </div>
 

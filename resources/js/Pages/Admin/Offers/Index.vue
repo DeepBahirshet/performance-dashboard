@@ -41,7 +41,7 @@
                             Budget
                         </th>
                         <th class="py-3 px-4 font-semibold text-center">
-                            Redemptions
+                            Max Redemptions
                         </th>
                         <th class="py-3 px-4 font-semibold text-center">
                             Actions
