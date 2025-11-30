@@ -268,7 +268,7 @@ A confirmation popup will appear — clicking **Delete** will delete the selecte
 
 ### 🗂️ Offers — Index  
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4ac6dad3-1449-4865-9e1a-152fa5813f6b" width="90%">
+  <img src="https://github.com/user-attachments/assets/c7b4f0ae-f602-4220-a78a-0ab77e161a30" width="90%">
 </p>
 
 ---
