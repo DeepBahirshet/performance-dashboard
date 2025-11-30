@@ -73,9 +73,17 @@
                         </td>
                         <td class="py-3 px-4 text-center">
                             <Link
-                                :href="route('admin.offers.edit', offer.id)"
+                                :href="route('admin.offers.edit', offer.id)" title="Edit"
                                 class="inline-flex items-center justify-center w-10 h-10 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition mr-3 cursor-pointer">
                                 <PencilSquareIcon class="w-5 h-5" />
+                            </Link>
+
+                            <Link
+                                :href="route('admin.offers.dashboard', offer.id)"
+                                class="inline-flex items-center justify-center w-10 h-10 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition mr-3 cursor-pointer"
+                                title="View dashboard"
+                            >
+                                <EyeIcon class="w-5 h-5" />
                             </Link>
 
                             <form
@@ -87,7 +95,7 @@
                                 class="inline"
                             >
                                 <button
-                                    type="submit"
+                                    type="submit" title="Delete"
                                     class="bg-red-500 inline-flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-red-600 transition-all duration-200 cursor-pointer"
                                 >
                                     <TrashIcon class="w-5 h-5" />
@@ -136,12 +144,11 @@
 
 <script setup>
 import { ref } from "vue";
-import { Link, usePage } from '@inertiajs/inertia-vue3';
+import { Link, usePage, useForm } from '@inertiajs/vue3';
+import { router } from "@inertiajs/core";
 import { route } from "ziggy-js";
-import { Inertia } from "@inertiajs/inertia";
 import Pagination from "../../Shared/Pagination.vue";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/solid";
-import { toast } from "vue3-toastify";
+import { PencilSquareIcon, EyeIcon, TrashIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
     offers: Object,
@@ -156,24 +163,20 @@ function openDeleteModal(id) {
     showDeleteModal.value = true;
 }
 
-function destroy() {
-    Inertia.delete(route("admin.offers.destroy", deleteId.value), {
-        onSuccess: () => {
-            showDeleteModal.value = false;
-
-            toast.success("Offer deleted successfully!", {
-                autoClose: 2000,
-                position: "top-right",
-            });
-        },
-    });
-}
+const deleteForm = useForm({});
+const destroy = () => {
+  deleteForm.delete(route('admin.offers.destroy', deleteId.value), {
+    onSuccess: () => {
+      showDeleteModal.value = false;
+    },
+  });
+};
 
 const page = usePage();
 const filters = ref(props.filters ?? { q: "" });
 
 function search() {
-    Inertia.get(
+    router.get(
         route("admin.offers.index"),
         { q: filters.value.q },
         { preserveState: true, replace: true }

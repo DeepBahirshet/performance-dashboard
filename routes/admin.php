@@ -5,5 +5,5 @@ use App\Http\Controllers\Admin\OfferDashboardController;
 
 Route::name('admin.')->group(function () {
     Route::resource('offers', OfferController::class);
-    Route::get('offers/{offer}/dashboard', [OfferDashboardController::class, 'show']);
+    Route::get('offers/{offer}/dashboard', [OfferDashboardController::class, 'show'])->name('offers.dashboard');
 });

@@ -134,7 +134,7 @@
 </template>
 
 <script setup>
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import { toast } from "vue3-toastify";
 
 const props = defineProps({
@@ -162,23 +162,9 @@ const form = useForm({
 
 function submit() {
   if (props.method.toLowerCase() === 'post') {
-    form.post(props.action, {
-      onSuccess: () => {
-        toast.success("Offer created successfully!", {
-          autoClose: 2000,
-          position: "top-right",
-        })
-      }
-    })
+    form.post(props.action);
   } else {
-    form.put(props.action, {
-      onSuccess: () => {
-        toast.success("Offer updated successfully!", {
-          autoClose: 2000,
-          position: "top-right",
-        })
-      }
-    })
+    form.put(props.action);
   }
 }
 

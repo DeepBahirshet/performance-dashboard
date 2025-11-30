@@ -79,7 +79,7 @@ class OfferController extends Controller
         $data = $request->validated();
         $this->service->update($offer, $data);
 
-        return redirect()->route('admin.offers.index')->with('success', 'Offer updated.')->setStatusCode(303);
+        return redirect()->route('admin.offers.index')->with('success', 'Offer updated successfully!');
     }
 
     /**
@@ -88,6 +88,6 @@ class OfferController extends Controller
     public function destroy(Offer $offer)
     {
         $this->service->delete($offer);
-        return redirect()->route('admin.offers.index')->with('success', 'Offer deleted.')->setStatusCode(303);
+        return redirect()->route('admin.offers.index')->with('success', 'Offer deleted successfully!');
     }
 }

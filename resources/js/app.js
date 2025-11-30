@@ -1,14 +1,13 @@
 import './bootstrap';
 import 'vue3-toastify/dist/index.css';
-import ToastPlugin from 'vue3-toastify';
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { createInertiaApp, router } from '@inertiajs/vue3';
+import Toast, { toast } from 'vue3-toastify'; 
 
 const appName = document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
     resolve: name => {
-        // This will find ANY .vue file under ./Pages/** (Admin/Offers/Index.vue etc.)
         const pages = import.meta.glob('./Pages/**/*.vue');
 
         const importPage = pages[`./Pages/${name}.vue`];
@@ -24,7 +23,26 @@ createInertiaApp({
 
         vueApp.use(plugin);
 
-        vueApp.use(ToastPlugin)
+        vueApp.use(Toast);
+
+        // for toast message
+        router.on('success', (event) => {
+            const flash = event.detail.page.props.flash;
+
+            if (flash?.success) {
+                toast.success(flash.success, {
+                    autoClose: 2000,
+                    position: "top-right",
+                });
+            }
+
+            if (flash?.error) {
+                toast.error(flash.error, {
+                    autoClose: 2000,
+                    position: "top-right",
+                });
+            }
+        });
 
 
         vueApp.mount(el);
